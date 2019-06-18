@@ -549,7 +549,7 @@ void print_users(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd
 		join_location = i;
 	}
     }
-    int z = 0;
+    unsigned int z = 0;
     int count_join = 0;
     if(join_y_n == 1){
 	if(!strncmp(cmd->args[join_location+3], "id", 2) && !strncmp(cmd->args[join_location+4], "=", 1)){
@@ -1218,8 +1218,8 @@ int handle_insert_cmd(Table_t *table, Command_t *cmd) {
 void print_like(Command_t *cmd){
 		int agg=0;
         unsigned int limit=like_count,offset=0;
-        int i;
-        int idx_for_agg=0;
+        size_t i;
+        size_t idx_for_agg=0;
         char ccmd[32];
         char str[32];
         int cnt = 0;
@@ -1280,9 +1280,9 @@ void print_like(Command_t *cmd){
 				offset = atoi(cmd->args[i+1]);
 			}
 		}
-		int j=0;
+		size_t j = 0;
 		int t_cnt = cnt;
-		int t = offset + limit;
+		size_t t = offset + limit;
 		if(t>like_count){
 			t = like_count;
 		}
@@ -1376,7 +1376,7 @@ void print_like(Command_t *cmd){
 int handle_select_cmd(Table_t *table, Command_t *cmd) {
     cmd->type = SELECT_CMD;
     field_state_handler(cmd, 1);
-    int i = 0;
+    size_t i = 0;
     int find_user = 0;
     int find_like = 0;
     for(i = 0; i < cmd->args_len; i++){
