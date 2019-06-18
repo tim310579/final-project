@@ -22,7 +22,7 @@ This project is a simple DBMS implemented using C, as the education material of 
 
 ## Produce large testcase
 
-`$ python test/system/generate_testcase.py [-h] [--user_num USER_NUM]`
+`$ python3 test/system/generate_testcase.py [-h] [--user_num USER_NUM]`
 
 ## Test the time of the large testcase
 
