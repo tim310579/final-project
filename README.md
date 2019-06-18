@@ -4,7 +4,7 @@ This project is a simple DBMS implemented using C, as the education material of 
 
 ## cloud website of final project 
 
-click me<https://docs.google.com/document/d/1_Nh_RXSplAlg-UhXW5yLOOglWdjZ0sMEtVOBsk5EreI/edit>
+[click me]:<https://docs.google.com/document/d/1_Nh_RXSplAlg-UhXW5yLOOglWdjZ0sMEtVOBsk5EreI/edit>
 ## Prerequisite
 
 * make >= 4.1
