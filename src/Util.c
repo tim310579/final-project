@@ -525,21 +525,64 @@ void print_users(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd
     }
     int *ch_last = (int*)malloc(sizeof(int)*table->len);
     //int *ch_last = malloc(sizeof(int));
-    if(logic == 'a'){
+    if(logic == 'a'){	//a means and
     	for(i = 0; i < table->len; i++){
 		ch_last[i] = ch1[i] && ch2[i];
 	}
     }
-    else if(logic == 'o'){
+    else if(logic == 'o'){	//o mean or
     	for(i = 0; i < table->len; i++){
                 ch_last[i] = ch1[i] || ch2[i];
         }
     }
     else{
-	    //printf("jdkdjjfkdfj");
+	    //no and, or
     	for(i = 0; i < table->len; i++){
 	    ch_last[i] = ch1[i];
 	}
+    }
+    int join_y_n = 0;
+    int join_location = 0;
+    for(i = 0; i < cmd->args_len; i++){
+	if(!strncmp(cmd->args[i], "join", 4) && !strncmp(cmd->args[i-1], "user", 4) && !strncmp(cmd->args[i+1], "like", 4)){
+		join_y_n = 1;
+		join_location = i;
+	}
+    }
+    int z = 0;
+    int count_join = 0;
+    if(join_y_n == 1){
+	if(!strncmp(cmd->args[join_location+3], "id", 2) && !strncmp(cmd->args[join_location+4], "=", 1)){
+	       if(!strncmp(cmd->args[join_location+5], "id1", 3)){
+	       		for(i = 0; i < table->len; i++){
+				if(ch_last[i] == 1){
+					size_t temp_id = get_User(table, i)->id;
+					for(z = 0; z < like_count; z++){
+						if(temp_id == like[0][z]){
+							count_join++;
+						}
+					}
+				}
+			}
+	       }
+	       else if(!strncmp(cmd->args[join_location+5], "id2", 3)){
+                        for(i = 0; i < table->len; i++){
+                                if(ch_last[i] == 1){
+                                        size_t temp_id = get_User(table, i)->id;
+                                        for(z = 0; z < like_count; z++){
+                                                if(temp_id == like[1][z]){
+                                                        count_join++;
+                                                }
+                                        }
+                                }
+                        }
+               }
+
+	}
+    
+    printf("(%d)\n", count_join);
+
+	return;
     }
 
    /* if (idxList) {
