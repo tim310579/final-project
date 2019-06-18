@@ -20,6 +20,14 @@ This project is a simple DBMS implemented using C, as the education material of 
 
 > if no test_cases is specified, it will run all system tests by default
 
+## Produce large testcase
+
+`$ python test/system/generate_testcase.py [-h] [--user_num USER_NUM]`
+
+## Test the time of the large testcase
+
+`$ time ./shell < test/system/testcases/large/t1.txt > /dev/null`
+
 ## Compile
 
 `$ make`
