@@ -549,32 +549,49 @@ void print_users(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd
 		join_location = i;
 	}
     }
+    int *which = (int*)malloc(sizeof(int)*table->len);
+    int which_ct = 0;
+    for(i = 0; i < table->len; i++){
+	    which[i] = -1;
+    }
+    for(i = 0; i < table->len; i++){
+	if(ch_last[i] == 1){
+		which[which_ct] = i;
+		which_ct ++;
+	}
+    }
     unsigned int z = 0;
     int count_join = 0;
     if(join_y_n == 1){
 	if(!strncmp(cmd->args[join_location+3], "id", 2) && !strncmp(cmd->args[join_location+4], "=", 1)){
 	       if(!strncmp(cmd->args[join_location+5], "id1", 3)){
 	       		for(i = 0; i < table->len; i++){
-				if(ch_last[i] == 1){
-					size_t temp_id = get_User(table, i)->id;
-					for(z = 0; z < like_count; z++){
-						if(temp_id == like[0][z]){
-							count_join++;
-						}
+				//if(ch_last[i] == 1){
+				if(which[i] == -1){
+					break;
+				}
+				size_t temp_id = get_User(table, which[i])->id;
+				for(z = 0; z < like_count; z++){
+					if(temp_id == like[0][z]){
+						count_join++;
 					}
 				}
+				
 			}
 	       }
 	       else if(!strncmp(cmd->args[join_location+5], "id2", 3)){
                         for(i = 0; i < table->len; i++){
-                                if(ch_last[i] == 1){
-                                        size_t temp_id = get_User(table, i)->id;
-                                        for(z = 0; z < like_count; z++){
-                                                if(temp_id == like[1][z]){
-                                                        count_join++;
-                                                }
-                                        }
+                                //if(ch_last[i] == 1){
+                                if(which[i] == -1){
+                                        break;
                                 }
+                                size_t temp_id = get_User(table, which[i])->id;
+                                for(z = 0; z < like_count; z++){
+                                        if(temp_id == like[1][z]){
+                                                count_join++;
+                                        }
+                                }       
+
                         }
                }
 
