@@ -1189,11 +1189,20 @@ void handle_update_CMD(Table_t *table, Command_t *cmd){
 				if(!strncmp(cmd->args[i+1], "id=", 3)){
 					upd = 1;
 					strncpy(temp, cmd->args[i+1]+3, 255);
+					if(strlen(temp) == 0){
+						strncpy(temp, cmd->args[i+2], 255);
+					}
 					tmp = atoi(temp);
 				}
 				else if(!strncmp(cmd->args[i+2], "=", 1)){
 					upd = 1;
-					strcpy(temp, cmd->args[i+3]);		
+					strncpy(temp, cmd->args[i+2]+1, 255);	//id =something		
+					if(strlen(temp) == 0){
+						strcpy(temp, cmd->args[i+3]);
+					}
+					else{
+						//nothing
+					}
 					tmp = atoi(temp);
 				}
 			}
@@ -1201,32 +1210,60 @@ void handle_update_CMD(Table_t *table, Command_t *cmd){
 				if(!strncmp(cmd->args[i+1], "name=", 5)){
                                 	upd = 2;
 					strncpy(temp, cmd->args[i+1]+5, 255);
+					if(strlen(temp) == 0){
+						strcpy(temp, cmd->args[i+2]);
+					}
 				}
 				else if(!strncmp(cmd->args[i+2], "=", 1)){
 					upd = 2;
-					strcpy(temp, cmd->args[i+3]);
+					strncpy(temp, cmd->args[i+2]+1, 255);	//name =...
+					if(strlen(temp) == 0){
+						strcpy(temp, cmd->args[i+3]);
+					}
+					else{
+						//nothing
+					}
+					
 				}
                         }
 			else if(!strncmp(cmd->args[i+1], "email", 5)){
 				if(!strncmp(cmd->args[i+1], "email=", 6)){
                                 	upd = 3;
 					strncpy(temp, cmd->args[i+1]+6, 255);
+					if(strlen(temp) == 0){
+                                                strcpy(temp, cmd->args[i+2]);
+                                        }
 				}
 				else if(!strncmp(cmd->args[i+2], "=", 1)){
                                         upd = 3;
-                                        strcpy(temp, cmd->args[i+3]);
-                                }
+        				strncpy(temp, cmd->args[i+2]+1, 255);   //email =...
+                                        if(strlen(temp) == 0){
+                                                strcpy(temp, cmd->args[i+3]);
+                                        }
+                                        else{
+                                        	//nothing
+                                        }                                
+				}
                         }
 			else if(!strncmp(cmd->args[i+1], "age", 3)){
 				if(!strncmp(cmd->args[i+1], "age=", 4)){
                                 	upd = 4;
 					strncpy(temp, cmd->args[i+1]+4, 255);
+					 if(strlen(temp) == 0){
+                                                strncpy(temp, cmd->args[i+2], 255);
+                                        }
 					tmp = atoi(temp);
 				//printf("%s, %ld\n", temp, tmp);
 				}
 				else if(!strncmp(cmd->args[i+2], "=", 1)){
                                         upd = 4;
-                                        strcpy(temp, cmd->args[i+3]); 
+                                        strncpy(temp, cmd->args[i+2]+1, 255);   //age =something         
+                                        if(strlen(temp) == 0){
+                                                strcpy(temp, cmd->args[i+3]);
+                                        }
+                                        else{
+                                                //nothing
+                                        }
                                         tmp = atoi(temp);
                                 }
 			}
