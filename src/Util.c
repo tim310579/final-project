@@ -28,6 +28,9 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
               			char temp3[20];
 				if(!strncmp(cmd->args[i+1], "id=", 3)){
 					strncpy(temp3, cmd->args[i+1]+3, 20);
+					if(strlen(temp3) == 0){
+						strncpy(temp3, cmd->args[i+2], 20);
+					}
 					size_t compare_id = atoi(temp3);
 					size_t id = 0;
         	                        for(id = 0; id < table->len; id++){
@@ -41,6 +44,9 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
 				}
 				else if(!strncmp(cmd->args[i+1], "id!=", 4)){
                                        strncpy(temp3, cmd->args[i+1]+4, 20);
+				       if(strlen(temp3) == 0){
+                                                strncpy(temp3, cmd->args[i+2], 20);
+                                        }
                                         size_t compare_id = atoi(temp3);
                                         size_t id = 0;
                                         for(id = 0; id < table->len; id++){
@@ -54,7 +60,10 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 }
 				else if(!strncmp(cmd->args[i+1], "id>=", 4)){
                                        strncpy(temp3, cmd->args[i+1]+4, 20);
-                                        size_t compare_id = atoi(temp3);
+                                       if(strlen(temp3) == 0){
+                                                strncpy(temp3, cmd->args[i+2], 20);
+                                        } 
+				       size_t compare_id = atoi(temp3);
                                         size_t id = 0;
                                         for(id = 0; id < table->len; id++){
                                                 if(get_User(table, id)->id >= compare_id){
@@ -67,7 +76,10 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 }
 				else if(!strncmp(cmd->args[i+1], "id<=", 4)){
                                        strncpy(temp3, cmd->args[i+1]+4, 20);
-                                        size_t compare_id = atoi(temp3);
+                                       if(strlen(temp3) == 0){
+                                                strncpy(temp3, cmd->args[i+2], 20);
+                                        } 
+				       size_t compare_id = atoi(temp3);
                                         size_t id = 0;
                                         for(id = 0; id < table->len; id++){
                                                 if(get_User(table, id)->id <= compare_id){
@@ -80,7 +92,10 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 }
 				else if(!strncmp(cmd->args[i+1], "id>", 3)){
                                        strncpy(temp3, cmd->args[i+1]+3, 20);
-                                        size_t compare_id = atoi(temp3);
+                                       if(strlen(temp3) == 0){
+                                                strncpy(temp3, cmd->args[i+2], 20);
+                                        } 
+				       size_t compare_id = atoi(temp3);
                                         size_t id = 0;
                                         for(id = 0; id < table->len; id++){
                                                 if(get_User(table, id)->id > compare_id){
@@ -93,7 +108,10 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 }
 				else if(!strncmp(cmd->args[i+1], "id<", 3)){
                                        strncpy(temp3, cmd->args[i+1]+3, 20);
-                                        size_t compare_id = atoi(temp3);
+                                       if(strlen(temp3) == 0){
+                                                strncpy(temp3, cmd->args[i+2], 20);
+                                        } 
+				       size_t compare_id = atoi(temp3);
                                         size_t id = 0;
                                         for(id = 0; id < table->len; id++){
                                                 if(get_User(table, id)->id < compare_id){
@@ -105,7 +123,14 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                          }
                             	}
 				else if(!strncmp(cmd->args[i+2], "=", 1)){		//id = ...
-					size_t compare_id = atoi(cmd->args[i+3]);
+					strncpy(temp3, cmd->args[i+2]+1, 20);
+					size_t compare_id = 0;
+					if(strlen(temp3) == 0){
+						compare_id = atoi(cmd->args[i+3]);
+					}
+					else{
+						compare_id = atoi(temp3);
+					}
 					size_t id = 0;
 						for(id = 0; id < table->len; id++){
 						if(get_User(table, id)->id == compare_id){
@@ -117,7 +142,14 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
 					}
 				}
 				else if(!strncmp(cmd->args[i+2], "!=", 2)){	//id != ...
-                    			size_t compare_id = atoi(cmd->args[i+3]);
+                    			strncpy(temp3, cmd->args[i+2]+2, 20);
+                                        size_t compare_id = 0;
+                                        if(strlen(temp3) == 0){
+                                                compare_id = atoi(cmd->args[i+3]);
+                                        }
+                                        else{
+                                                compare_id = atoi(temp3);
+                                        }
                                 	size_t id = 0;
                                 	for(id = 0; id < table->len; id++){
                                         	if(get_User(table, id)->id != compare_id){
@@ -129,7 +161,14 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 	}
                         	}
 				else if(!strncmp(cmd->args[i+2], ">=", 2)){     //id >= ...
-                                	size_t compare_id = atoi(cmd->args[i+3]);
+                                	strncpy(temp3, cmd->args[i+2]+2, 20);
+                                        size_t compare_id = 0;
+                                        if(strlen(temp3) == 0){
+                                                compare_id = atoi(cmd->args[i+3]);
+                                        }
+                                        else{
+                                                compare_id = atoi(temp3);
+                                        }
                                 	size_t id = 0;
                                 	for(id = 0; id < table->len; id++){
                                         	if(get_User(table, id)->id >= compare_id){
@@ -141,7 +180,14 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 	}
                         	}
 				else if(!strncmp(cmd->args[i+2], "<=", 2)){     //id <= ...
-                                	size_t compare_id = atoi(cmd->args[i+3]);
+                                	strncpy(temp3, cmd->args[i+2]+2, 20);
+                                        size_t compare_id = 0;
+                                        if(strlen(temp3) == 0){
+                                                compare_id = atoi(cmd->args[i+3]);
+                                        }
+                                        else{
+                                                compare_id = atoi(temp3);
+                                        }
                                 	size_t id = 0;
                                 	for(id = 0; id < table->len; id++){
                                         	if(get_User(table, id)->id <= compare_id){
@@ -153,7 +199,14 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 	}
                         	}
 				else if(!strncmp(cmd->args[i+2], ">", 1)){     //id > ...
-                                	size_t compare_id = atoi(cmd->args[i+3]);
+                                	strncpy(temp3, cmd->args[i+2]+1, 20);
+                                        size_t compare_id = 0;
+                                        if(strlen(temp3) == 0){
+                                                compare_id = atoi(cmd->args[i+3]);
+                                        }
+                                        else{
+                                                compare_id = atoi(temp3);
+                                        }
                                 	size_t id = 0;
                                 	for(id = 0; id < table->len; id++){
                                         	if(get_User(table, id)->id > compare_id){
@@ -165,7 +218,14 @@ int *where_func(Table_t *table, int *idxList, size_t idxListLen, Command_t *cmd,
                                 	}
                         	}
 				else if(!strncmp(cmd->args[i+2], "<", 1)){     //id < ...
-                                	size_t compare_id = atoi(cmd->args[i+3]);
+                                	strncpy(temp3, cmd->args[i+2]+1, 20);
+                                        size_t compare_id = 0;
+                                        if(strlen(temp3) == 0){
+                                                compare_id = atoi(cmd->args[i+3]);
+                                        }
+                                        else{
+                                                compare_id = atoi(temp3);
+                                        }
                                 	size_t id = 0;
                                 	for(id = 0; id < table->len; id++){
                                         	if(get_User(table, id)->id < compare_id){
